@@ -122,8 +122,8 @@
 
 <body>
 
-    <!-- Musik autoplay -->
-    <audio id="bgm" src="music.mp3" autoplay loop></audio>
+    <!-- Musik -->
+    <audio id="bgm" src="music.mp3" autoplay loop muted></audio>
 
     <h1 class="judul3d-h1">BTI COMMUNITY</h1>
     <p class="judul3d">JANGAN BERSEDIH ITULAH HIDUP</p>
@@ -152,20 +152,22 @@
 
         /* ===== SISTEM MUSIK ===== */
         const bgm = document.getElementById("bgm");
-        let musicOn = true;
+        let musicOn = false;
 
         function toggleMusic() {
             if (musicOn) {
                 bgm.pause();
-                document.getElementById("musicBtn").innerText = "🔇 Musik";
+                bgm.muted = true;
+                musicBtn.innerText = "🔇 Musik";
             } else {
+                bgm.muted = false;
                 bgm.play();
-                document.getElementById("musicBtn").innerText = "🔊 Musik";
+                musicBtn.innerText = "🔊 Musik";
             }
             musicOn = !musicOn;
         }
 
-        /* ===== FITUR DRAG / GESER LAYAR ===== */
+        /* ===== FITUR DRAG LAYAR ===== */
         let drag = false;
         let lastX = 0, lastY = 0;
 
@@ -206,5 +208,3 @@
 
 </body>
 </html>
-
-
