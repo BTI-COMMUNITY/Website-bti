@@ -6,7 +6,6 @@
     <title>BTI COMMUNITY GT</title>
 
     <style>
-        /* ===== HALAMAN ===== */
         body {
             font-family: Arial, sans-serif;
             text-align: center;
@@ -14,176 +13,167 @@
             background-image: url('background.webp');
             background-size: cover;
             background-position: center;
-            background-repeat: no-repeat;
             background-attachment: fixed;
             color: white;
-            height: 200vh; /* bikin halaman tinggi biar bisa digeser */
+            overflow: hidden;
         }
 
         h1, p {
-            text-shadow: 2px 2px 4px black;
             margin: 0;
         }
 
-        /* ===== TEKS 3D ===== */
+        /* ====== ANIMASI TEKS 3D ====== */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+
         .judul3d-h1 {
             font-size: 10vw;
-            color: #ffffff;
             font-weight: bold;
-            text-shadow:
-                3px 3px 0 #000,
-                6px 6px 0 #555,
-                9px 9px 0 #aaa;
-            margin: 0 0 20px 0;
+            text-shadow: 4px 4px 0 #000, 8px 8px 0 #444;
+            animation: float 3s ease-in-out infinite;
         }
 
         .judul3d {
-            font-size: 8vw;
-            color: #ffffff;
+            font-size: 7vw;
             font-weight: bold;
-            text-shadow:
-                3px 3px 0 #000,
-                6px 6px 0 #555,
-                9px 9px 0 #aaa;
-            margin: 10px 0 20px 0;
+            text-shadow: 4px 4px 0 #000, 8px 8px 0 #444;
+            animation: float 3s ease-in-out infinite;
+            animation-delay: .5s;
         }
 
-        /* ===== MEDIA QUERY ===== */
-        @media (min-width: 768px) {
-            .judul3d-h1 {
-                font-size: 60px;
-            }
-            .judul3d {
-                font-size: 40px;
-            }
-        }
-
-        /* ===== TOMBOL ===== */
+        /* ====== TOMBOL ====== */
         button {
             padding: 12px 25px;
-            font-size: 4vw;
+            font-size: 5vw;
             background: linear-gradient(90deg, purple, blue, black);
             border: none;
             color: white;
-            border-radius: 6px;
+            border-radius: 8px;
             cursor: pointer;
-            margin-top: 20px;
-            transition: all 0.3s ease;
+            margin-top: 25px;
         }
-
         button:hover {
             transform: scale(1.05);
-            opacity: 0.9;
         }
 
-        /* ===== POPUP ===== */
+        /* ====== POPUP ====== */
         #popup {
             display: none;
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.8);
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.85);
             justify-content: center;
             align-items: center;
             flex-direction: column;
-            z-index: 999;
         }
-
         #popup img {
             width: 90%;
             max-width: 400px;
             border-radius: 10px;
         }
-
-        #popup h2 {
-            color: white;
-            margin-top: 20px;
-            font-size: 4vw;
-        }
-
         #closeBtn {
             position: absolute;
-            top: 20px;
-            right: 30px;
-            font-size: 30px;
-            color: white;
-            font-weight: bold;
+            top: 20px; right: 30px;
+            font-size: 35px;
             cursor: pointer;
-            z-index: 1000;
         }
 
-        #closeBtn:hover {
-            color: red;
+        /* ====== TOMBOL MUSIK ====== */
+        #musicBtn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 12px 18px;
+            background: rgba(0,0,0,0.5);
+            border-radius: 50px;
+            font-size: 20px;
         }
     </style>
 </head>
 
 <body>
 
+    <!-- Musik autoplay -->
+    <audio id="bgm" src="music.mp3" autoplay loop></audio>
+
     <h1 class="judul3d-h1">BTI COMMUNITY</h1>
     <p class="judul3d">JANGAN BERSEDIH ITULAH HIDUP</p>
 
     <button onclick="togglePopup()">PALU</button>
 
-    <!-- POPUP -->
+    <!-- Popup -->
     <div id="popup">
         <span id="closeBtn" onclick="closePopup()">×</span>
-        <img src="images.jpeg" alt="Gambar Besar">
+        <img src="images.jpeg">
         <h2>PEDANG SANG JUARA BEREAKSI KERAS!</h2>
     </div>
 
+    <!-- Tombol Musik -->
+    <button id="musicBtn" onclick="toggleMusic()">🔊 Musik</button>
+
     <script>
+        /* ===== POPUP ===== */
         function togglePopup() {
             document.getElementById("popup").style.display = "flex";
         }
-
         function closePopup() {
             document.getElementById("popup").style.display = "none";
         }
 
-        /* ===== Fitur drag pakai jari & mouse ===== */
-        let pos = { x: 0, y: 0 };
-        let lastPos = { x: 0, y: 0 };
-        let isDragging = false;
+        /* ===== SISTEM MUSIK ===== */
+        const bgm = document.getElementById("bgm");
+        let musicOn = true;
 
-        // Touch start
-        document.addEventListener("touchstart", function(e) {
-            isDragging = true;
-            lastPos.x = e.touches[0].clientX;
-            lastPos.y = e.touches[0].clientY;
+        function toggleMusic() {
+            if (musicOn) {
+                bgm.pause();
+                document.getElementById("musicBtn").innerText = "🔇 Musik";
+            } else {
+                bgm.play();
+                document.getElementById("musicBtn").innerText = "🔊 Musik";
+            }
+            musicOn = !musicOn;
+        }
+
+        /* ===== DRAG GESER LAYAR ===== */
+        let drag = false;
+        let lastX = 0, lastY = 0;
+
+        document.addEventListener("touchstart", e => {
+            drag = true;
+            lastX = e.touches[0].clientX;
+            lastY = e.touches[0].clientY;
         });
 
-        // Touch move
-        document.addEventListener("touchmove", function(e) {
-            if (!isDragging) return;
-            let dx = e.touches[0].clientX - lastPos.x;
-            let dy = e.touches[0].clientY - lastPos.y;
+        document.addEventListener("touchmove", e => {
+            if (!drag) return;
+            let dx = e.touches[0].clientX - lastX;
+            let dy = e.touches[0].clientY - lastY;
             window.scrollBy(-dx, -dy);
-            lastPos.x = e.touches[0].clientX;
-            lastPos.y = e.touches[0].clientY;
+            lastX = e.touches[0].clientX;
+            lastY = e.touches[0].clientY;
         });
 
-        document.addEventListener("touchend", () => isDragging = false);
+        document.addEventListener("touchend", () => drag = false);
 
-        // Mouse drag
-        document.addEventListener("mousedown", function(e) {
-            isDragging = true;
-            lastPos.x = e.clientX;
-            lastPos.y = e.clientY;
+        document.addEventListener("mousedown", e => {
+            drag = true;
+            lastX = e.clientX;
+            lastY = e.clientY;
         });
-
-        document.addEventListener("mousemove", function(e) {
-            if (!isDragging) return;
-            let dx = e.clientX - lastPos.x;
-            let dy = e.clientY - lastPos.y;
+        document.addEventListener("mousemove", e => {
+            if (!drag) return;
+            let dx = e.clientX - lastX;
+            let dy = e.clientY - lastY;
             window.scrollBy(-dx, -dy);
-            lastPos.x = e.clientX;
-            lastPos.y = e.clientY;
+            lastX = e.clientX;
+            lastY = e.clientY;
         });
-
-        document.addEventListener("mouseup", () => isDragging = false);
+        document.addEventListener("mouseup", () => drag = false);
     </script>
 
 </body>
