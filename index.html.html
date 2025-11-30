@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Faiz Ganteng</title>
+
+    <style>
+        /* ===== HALAMAN ===== */
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+            background-image: url('background.webp'); /* background kamu */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color: white;
+        }
+
+        h1, p {
+            text-shadow: 2px 2px 4px black;
+            margin: 0;
+        }
+
+        /* ===== TEKS 3D ===== */
+        .judul3d-h1 {
+            font-size: 10vw; /* responsive */
+            color: #ffffff;
+            font-weight: bold;
+            text-shadow:
+                3px 3px 0 #000,
+                6px 6px 0 #555,
+                9px 9px 0 #aaa;
+            margin: 0 0 20px 0;
+        }
+
+        .judul3d {
+            font-size: 8vw; /* responsive */
+            color: #ffffff;
+            font-weight: bold;
+            text-shadow:
+                3px 3px 0 #000,
+                6px 6px 0 #555,
+                9px 9px 0 #aaa;
+            margin: 10px 0 20px 0;
+        }
+
+        /* ===== MEDIA QUERY UNTUK BATAS UKURAN ===== */
+        @media (min-width: 768px) {
+            .judul3d-h1 {
+                font-size: 60px; /* maksimal laptop/PC */
+            }
+            .judul3d {
+                font-size: 40px;
+            }
+        }
+
+        /* ===== TOMBOL ===== */
+        button {
+            padding: 12px 25px;
+            font-size: 4vw; /* responsive */
+            background: linear-gradient(90deg, purple, blue, black);
+            border: none;
+            color: white;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            opacity: 0.9;
+        }
+
+        /* ===== POPUP ===== */
+        #popup {
+            display: none; /* awalnya disembunyikan */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            z-index: 999;
+        }
+
+        #popup img {
+            width: 90%;
+            max-width: 400px; /* responsive popup */
+            border-radius: 10px;
+        }
+
+        #popup h2 {
+            color: white;
+            margin-top: 20px;
+            font-size: 4vw;
+        }
+
+        /* Tombol close “X” */
+        #closeBtn {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 30px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 1000;
+        }
+
+        #closeBtn:hover {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Judul utama -->
+    <h1 class="judul3d-h1">BTI COMMUNITY</h1>
+
+    <!-- Teks halaman pertama -->
+    <p class="judul3d">JANGAN BERSEDIH ITULAH HIDUP</p>
+
+    <!-- Tombol PALU -->
+    <button onclick="togglePopup()">PALU</button>
+
+    <!-- Popup gambar -->
+    <div id="popup">
+        <!-- Tombol close X -->
+        <span id="closeBtn" onclick="closePopup()">×</span>
+        <img src="images.jpeg" alt="Gambar Besar">
+        <h2>PEDANG SANG JUARA BEREAKSI KERAS!</h2>
+    </div>
+
+    <script>
+        function togglePopup() {
+            const pop = document.getElementById("popup");
+            pop.style.display = "flex"; // munculkan popup
+        }
+
+        function closePopup() {
+            const pop = document.getElementById("popup");
+            pop.style.display = "none"; // sembunyikan popup
+        }
+    </script>
+
+</body>
+</html>
