@@ -11,12 +11,13 @@
             font-family: Arial, sans-serif;
             text-align: center;
             padding: 20px;
-            background-image: url('background.webp'); /* background kamu */
+            background-image: url('background.webp');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
             background-attachment: fixed;
             color: white;
+            height: 200vh; /* bikin halaman tinggi biar bisa digeser */
         }
 
         h1, p {
@@ -26,7 +27,7 @@
 
         /* ===== TEKS 3D ===== */
         .judul3d-h1 {
-            font-size: 10vw; /* responsive */
+            font-size: 10vw;
             color: #ffffff;
             font-weight: bold;
             text-shadow:
@@ -37,7 +38,7 @@
         }
 
         .judul3d {
-            font-size: 8vw; /* responsive */
+            font-size: 8vw;
             color: #ffffff;
             font-weight: bold;
             text-shadow:
@@ -47,10 +48,10 @@
             margin: 10px 0 20px 0;
         }
 
-        /* ===== MEDIA QUERY UNTUK BATAS UKURAN ===== */
+        /* ===== MEDIA QUERY ===== */
         @media (min-width: 768px) {
             .judul3d-h1 {
-                font-size: 60px; /* maksimal laptop/PC */
+                font-size: 60px;
             }
             .judul3d {
                 font-size: 40px;
@@ -60,7 +61,7 @@
         /* ===== TOMBOL ===== */
         button {
             padding: 12px 25px;
-            font-size: 4vw; /* responsive */
+            font-size: 4vw;
             background: linear-gradient(90deg, purple, blue, black);
             border: none;
             color: white;
@@ -77,7 +78,7 @@
 
         /* ===== POPUP ===== */
         #popup {
-            display: none; /* awalnya disembunyikan */
+            display: none;
             position: fixed;
             top: 0;
             left: 0;
@@ -92,7 +93,7 @@
 
         #popup img {
             width: 90%;
-            max-width: 400px; /* responsive popup */
+            max-width: 400px;
             border-radius: 10px;
         }
 
@@ -102,7 +103,6 @@
             font-size: 4vw;
         }
 
-        /* Tombol close “X” */
         #closeBtn {
             position: absolute;
             top: 20px;
@@ -122,18 +122,13 @@
 
 <body>
 
-    <!-- Judul utama -->
     <h1 class="judul3d-h1">BTI COMMUNITY</h1>
-
-    <!-- Teks halaman pertama -->
     <p class="judul3d">JANGAN BERSEDIH ITULAH HIDUP</p>
 
-    <!-- Tombol PALU -->
     <button onclick="togglePopup()">PALU</button>
 
-    <!-- Popup gambar -->
+    <!-- POPUP -->
     <div id="popup">
-        <!-- Tombol close X -->
         <span id="closeBtn" onclick="closePopup()">×</span>
         <img src="images.jpeg" alt="Gambar Besar">
         <h2>PEDANG SANG JUARA BEREAKSI KERAS!</h2>
@@ -141,63 +136,55 @@
 
     <script>
         function togglePopup() {
-            const pop = document.getElementById("popup");
-            pop.style.display = "flex"; // munculkan popup
+            document.getElementById("popup").style.display = "flex";
         }
 
         function closePopup() {
-            const pop = document.getElementById("popup");
-            pop.style.display = "none"; // sembunyikan popup
+            document.getElementById("popup").style.display = "none";
         }
-let pos = { x: 0, y: 0 };
-let lastPos = { x: 0, y: 0 };
-let isDragging = false;
 
-// Untuk HP (touch)
-document.addEventListener("touchstart", function(e) {
-    isDragging = true;
-    lastPos.x = e.touches[0].clientX;
-    lastPos.y = e.touches[0].clientY;
-});
+        /* ===== Fitur drag pakai jari & mouse ===== */
+        let pos = { x: 0, y: 0 };
+        let lastPos = { x: 0, y: 0 };
+        let isDragging = false;
 
-document.addEventListener("touchmove", function(e) {
-    if (!isDragging) return;
-    let dx = e.touches[0].clientX - lastPos.x;
-    let dy = e.touches[0].clientY - lastPos.y;
-    window.scrollBy(-dx, -dy);
-    lastPos.x = e.touches[0].clientX;
-    lastPos.y = e.touches[0].clientY;
-});
+        // Touch start
+        document.addEventListener("touchstart", function(e) {
+            isDragging = true;
+            lastPos.x = e.touches[0].clientX;
+            lastPos.y = e.touches[0].clientY;
+        });
 
-document.addEventListener("touchend", function() {
-    isDragging = false;
-});
+        // Touch move
+        document.addEventListener("touchmove", function(e) {
+            if (!isDragging) return;
+            let dx = e.touches[0].clientX - lastPos.x;
+            let dy = e.touches[0].clientY - lastPos.y;
+            window.scrollBy(-dx, -dy);
+            lastPos.x = e.touches[0].clientX;
+            lastPos.y = e.touches[0].clientY;
+        });
 
-// Untuk PC (mouse drag)
-document.addEventListener("mousedown", function(e) {
-    isDragging = true;
-    lastPos.x = e.clientX;
-    lastPos.y = e.clientY;
-});
+        document.addEventListener("touchend", () => isDragging = false);
 
-document.addEventListener("mousemove", function(e) {
-    if (!isDragging) return;
-    let dx = e.clientX - lastPos.x;
-    let dy = e.clientY - lastPos.y;
-    window.scrollBy(-dx, -dy);
-    lastPos.x = e.clientX;
-    lastPos.y = e.clientY;
-});
+        // Mouse drag
+        document.addEventListener("mousedown", function(e) {
+            isDragging = true;
+            lastPos.x = e.clientX;
+            lastPos.y = e.clientY;
+        });
 
-document.addEventListener("mouseup", function() {
-    isDragging = false;
-});
+        document.addEventListener("mousemove", function(e) {
+            if (!isDragging) return;
+            let dx = e.clientX - lastPos.x;
+            let dy = e.clientY - lastPos.y;
+            window.scrollBy(-dx, -dy);
+            lastPos.x = e.clientX;
+            lastPos.y = e.clientY;
+        });
 
-
+        document.addEventListener("mouseup", () => isDragging = false);
     </script>
 
 </body>
 </html>
-
-
-
