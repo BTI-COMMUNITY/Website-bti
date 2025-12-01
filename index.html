@@ -11,9 +11,9 @@
         margin: 0;
         padding: 0;
         font-family: Arial, sans-serif;
-        height: 100vh;
         overflow: hidden;
-        background-color: #ffffff; /* Putih */
+        background-color: #ffffff;
+        height: 100vh;
     }
 
     /* ===== BACKGROUND DRAGABLE ===== */
@@ -22,18 +22,19 @@
         top: 0; left: 0;
         width: 2000px;
         height: 2000px;
-        background-image: url('bti.jpg'); /* ganti dengan foto kamu */
+        background-image: url('bti.jpg'); /* Ganti dengan foto kamu */
         background-size: cover;
         background-position: center;
         cursor: grab;
         z-index: 0;
+        transition: transform 0.1s ease-out;
     }
 
     #bg-container.dragging {
         cursor: grabbing;
     }
 
-    /* ===== KONTEN ===== */
+    /* ===== HERO TEXT ===== */
     .hero-text {
         position: absolute;
         top: 50%;
@@ -44,29 +45,50 @@
         color: #000000;
     }
 
-    .hero-text h1, .hero-text h2, .hero-text p {
+    /* ===== JUDUL ANIMASI SHINE ===== */
+    .judul3d-h1, .judul3d-h2, .judul3d {
+        font-weight: bold;
+        position: relative;
+        display: inline-block;
+        overflow: hidden;
         margin: 10px 0;
     }
 
     .judul3d-h1 {
         font-size: 9vw;
-        font-weight: bold;
-        color: #000000;
-        text-shadow: none;
+        color: #000;
     }
 
     .judul3d-h2 {
         font-size: 6vw;
-        font-weight: bold;
-        color: #000000;
-        text-shadow: none;
+        color: #000;
     }
 
     .judul3d {
         font-size: 4vw;
-        font-weight: normal;
-        color: #000000;
-        text-shadow: none;
+        color: #000;
+    }
+
+    /* Shine effect */
+    .judul3d-h1::after, .judul3d-h2::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -150%;
+        width: 150%;
+        height: 100%;
+        background: linear-gradient(
+            120deg,
+            transparent 0%,
+            rgba(255,255,255,0.5) 50%,
+            transparent 100%
+        );
+        animation: shineMove 3s linear infinite;
+    }
+
+    @keyframes shineMove {
+        0% { left: -150%; }
+        100% { left: 150%; }
     }
 
     /* ===== CARD ===== */
@@ -79,7 +101,7 @@
         padding: 20px;
         border-radius: 10px;
         box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        color: #000000;
+        color: #000;
         text-align: center;
     }
 
@@ -122,7 +144,7 @@
         align-items: center;
         flex-direction: column;
         z-index: 20;
-        color: #000000;
+        color: #000;
     }
 
     #popup img {
@@ -145,7 +167,7 @@
 <!-- Background -->
 <div id="bg-container"></div>
 
-<!-- Konten di atas -->
+<!-- Konten -->
 <div class="hero-text">
     <h1 class="judul3d-h1">BTI COMMUNITY</h1>
     <h2 class="judul3d-h2">BY MUFID</h2>
@@ -168,15 +190,10 @@
 
 <script>
     /* ===== POPUP ===== */
-    function togglePopup() {
-        document.getElementById("popup").style.display = "flex";
-    }
+    function togglePopup() { document.getElementById("popup").style.display = "flex"; }
+    function closePopup() { document.getElementById("popup").style.display = "none"; }
 
-    function closePopup() {
-        document.getElementById("popup").style.display = "none";
-    }
-
-    /* ===== DRAG BACKGROUND ===== */
+    /* ===== DRAG & PARALLAX BACKGROUND ===== */
     const bg = document.getElementById('bg-container');
     let isDragging = false;
     let startX, startY, offsetX, offsetY;
@@ -196,11 +213,15 @@
         const dy = e.clientY - startY;
         bg.style.left = (offsetX + dx) + 'px';
         bg.style.top = (offsetY + dy) + 'px';
+        // Parallax ringan: scale
+        const scale = 1 + Math.min(Math.abs(dx), Math.abs(dy)) / 1000;
+        bg.style.transform = `scale(${scale})`;
     });
 
     document.addEventListener('mouseup', () => {
         isDragging = false;
         bg.classList.remove('dragging');
+        bg.style.transform = 'scale(1)';
     });
 
     // Support touch
@@ -219,11 +240,14 @@
         const dy = e.touches[0].clientY - startY;
         bg.style.left = (offsetX + dx) + 'px';
         bg.style.top = (offsetY + dy) + 'px';
+        const scale = 1 + Math.min(Math.abs(dx), Math.abs(dy)) / 1000;
+        bg.style.transform = `scale(${scale})`;
     });
 
     document.addEventListener('touchend', () => {
         isDragging = false;
         bg.classList.remove('dragging');
+        bg.style.transform = 'scale(1)';
     });
 </script>
 
