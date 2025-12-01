@@ -2,122 +2,121 @@
 <html lang="id">
 
 <head>
-    <meta charset="UTF-8">
-    <title>BTI COMMUNITY GT</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BTI COMMUNITY GT</title>
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 20px;
-            background-image: url('background.png');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            color: white;
-            overflow: hidden;
-        }
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        padding: 20px;
+        background-image: url('background.png'); /* ganti dengan foto kamu */
+        background-size: cover;
+        background-position: center;
+        /* background-attachment: fixed; */ /* dihapus agar scroll aktif */
+        color: white;
+        overflow-y: auto; /* scroll vertikal aktif */
+        min-height: 200vh; /* agar bisa scroll */
+    }
 
-        h1, p {
-            margin: 0;
-        }
+    h1, p {
+        margin: 0;
+    }
 
-        /* ====== ANIMASI CAHAYA BERGERAK PADA TEKS ====== */
-        .judul3d-h1, .judul3d {
-            font-weight: bold;
-            text-shadow: 4px 4px 0 #000, 8px 8px 0 #444;
-            position: relative;
-            display: inline-block;
-            overflow: hidden;
-        }
+    /* ===== ANIMASI CAHAYA TEKS ===== */
+    .judul3d-h1, .judul3d {
+        font-weight: bold;
+        text-shadow: 4px 4px 0 #000, 8px 8px 0 #444;
+        position: relative;
+        display: inline-block;
+        overflow: hidden;
+    }
 
-        .judul3d-h1 {
-            font-size: 10vw;
-        }
+    .judul3d-h1 { font-size: 10vw; }
+    .judul3d    { font-size: 7vw; }
 
-        .judul3d {
-            font-size: 7vw;
-        }
+    .judul3d-h1::after, .judul3d::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -150%;
+        width: 150%;
+        height: 100%;
+        background: linear-gradient(
+            120deg,
+            transparent 0%,
+            rgba(255,255,255,0.5) 50%,
+            transparent 100%
+        );
+        animation: shineMove 3s linear infinite;
+    }
 
-        .judul3d-h1::after,
-        .judul3d::after {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: -150%;
-            width: 150%;
-            height: 100%;
-            background: linear-gradient(
-                120deg,
-                transparent 0%,
-                rgba(255,255,255,0.5) 50%,
-                transparent 100%
-            );
-            animation: shineMove 3s linear infinite;
-        }
+    @keyframes shineMove {
+        0% { left: -150%; }
+        100% { left: 150%; }
+    }
 
-        @keyframes shineMove {
-            0% { left: -150%; }
-            100% { left: 150%; }
-        }
+    /* ===== TOMBOL ===== */
+    button {
+        padding: 12px 25px;
+        font-size: 5vw;
+        background: linear-gradient(90deg, blue, white);
+        border: none;
+        color: white;
+        border-radius: 8px;
+        cursor: pointer;
+        margin-top: 25px;
+        box-shadow: 0 0 15px rgba(255,255,255,0.3);
+    }
 
-        /* ====== TOMBOL ====== */
-        button {
-            padding: 12px 25px;
-            font-size: 5vw;
-            background: linear-gradient(90deg, purple, blue, black);
-            border: none;
-            color: white;
-            border-radius: 8px;
-            cursor: pointer;
-            margin-top: 25px;
-            box-shadow: 0 0 15px rgba(255,255,255,0.3);
-        }
+    button:hover {
+        transform: scale(1.05);
+        box-shadow: 0 0 25px rgba(255,255,255,0.6);
+    }
 
-        button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 25px rgba(255,255,255,0.6);
-        }
+    /* ===== POPUP ===== */
+    #popup {
+        display: none;
+        position: fixed;
+        top: 0; 
+        left: 0;
+        width: 100%; 
+        height: 100%;
+        background-color: rgba(0,0,0,0.85);
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        z-index: 10;
+    }
 
-        /* ====== POPUP ====== */
-        #popup {
-            display: none;
-            position: fixed;
-            top: 0; 
-            left: 0;
-            width: 100%; 
-            height: 100%;
-            background-color: rgba(0,0,0,0.85);
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-        }
+    #popup img {
+        width: 90%;
+        max-width: 400px;
+        border-radius: 10px;
+    }
 
-        #popup img {
-            width: 90%;
-            max-width: 400px;
-            border-radius: 10px;
-        }
+    #closeBtn {
+        position: absolute;
+        top: 20px; 
+        right: 30px;
+        font-size: 35px;
+        cursor: pointer;
+    }
 
-        #closeBtn {
-            position: absolute;
-            top: 20px; 
-            right: 30px;
-            font-size: 35px;
-            cursor: pointer;
-        }
+    /* ===== TOMBOL MUSIK ===== */
+    #musicBtn {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        padding: 12px 18px;
+        background: rgba(0,0,0,0.5);
+        border-radius: 50px;
+        font-size: 20px;
+        z-index: 20;
+    }
 
-        /* ====== TOMBOL MUSIK ====== */
-        #musicBtn {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            padding: 12px 18px;
-            background: rgba(0,0,0,0.5);
-            border-radius: 50px;
-            font-size: 20px;
-        }
-    </style>
+</style>
 </head>
 
 <body>
@@ -130,6 +129,9 @@
 
     <button onclick="togglePopup()">PALU</button>
 
+    <!-- Spacer agar bisa scroll -->
+    <div style="height: 1200px;"></div>
+
     <!-- Popup -->
     <div id="popup">
         <span id="closeBtn" onclick="closePopup()">×</span>
@@ -140,72 +142,71 @@
     <!-- Tombol Musik -->
     <button id="musicBtn" onclick="toggleMusic()">🔊 Musik</button>
 
-    <script>
-        /* ===== POPUP ===== */
-        function togglePopup() {
-            document.getElementById("popup").style.display = "flex";
+<script>
+    /* ===== POPUP ===== */
+    function togglePopup() {
+        document.getElementById("popup").style.display = "flex";
+    }
+
+    function closePopup() {
+        document.getElementById("popup").style.display = "none";
+    }
+
+    /* ===== SISTEM MUSIK ===== */
+    const bgm = document.getElementById("bgm");
+    let musicOn = false;
+
+    function toggleMusic() {
+        if (musicOn) {
+            bgm.pause();
+            bgm.muted = true;
+            musicBtn.innerText = "🔇 Musik";
+        } else {
+            bgm.muted = false;
+            bgm.play();
+            musicBtn.innerText = "🔊 Musik";
         }
+        musicOn = !musicOn;
+    }
 
-        function closePopup() {
-            document.getElementById("popup").style.display = "none";
-        }
+    /* ===== FITUR DRAG LAYAR ===== */
+    let drag = false;
+    let lastX = 0, lastY = 0;
 
-        /* ===== SISTEM MUSIK ===== */
-        const bgm = document.getElementById("bgm");
-        let musicOn = false;
+    document.addEventListener("touchstart", e => {
+        drag = true;
+        lastX = e.touches[0].clientX;
+        lastY = e.touches[0].clientY;
+    });
 
-        function toggleMusic() {
-            if (musicOn) {
-                bgm.pause();
-                bgm.muted = true;
-                musicBtn.innerText = "🔇 Musik";
-            } else {
-                bgm.muted = false;
-                bgm.play();
-                musicBtn.innerText = "🔊 Musik";
-            }
-            musicOn = !musicOn;
-        }
+    document.addEventListener("touchmove", e => {
+        if (!drag) return;
+        let dx = e.touches[0].clientX - lastX;
+        let dy = e.touches[0].clientY - lastY;
+        window.scrollBy(-dx, -dy);
+        lastX = e.touches[0].clientX;
+        lastY = e.touches[0].clientY;
+    });
 
-        /* ===== FITUR DRAG LAYAR ===== */
-        let drag = false;
-        let lastX = 0, lastY = 0;
+    document.addEventListener("touchend", () => drag = false);
 
-        document.addEventListener("touchstart", e => {
-            drag = true;
-            lastX = e.touches[0].clientX;
-            lastY = e.touches[0].clientY;
-        });
+    document.addEventListener("mousedown", e => {
+        drag = true;
+        lastX = e.clientX;
+        lastY = e.clientY;
+    });
 
-        document.addEventListener("touchmove", e => {
-            if (!drag) return;
-            let dx = e.touches[0].clientX - lastX;
-            let dy = e.touches[0].clientY - lastY;
-            window.scrollBy(-dx, -dy);
-            lastX = e.touches[0].clientX;
-            lastY = e.touches[0].clientY;
-        });
+    document.addEventListener("mousemove", e => {
+        if (!drag) return;
+        let dx = e.clientX - lastX;
+        let dy = e.clientY - lastY;
+        window.scrollBy(-dx, -dy);
+        lastX = e.clientX;
+        lastY = e.clientY;
+    });
 
-        document.addEventListener("touchend", () => drag = false);
-
-        document.addEventListener("mousedown", e => {
-            drag = true;
-            lastX = e.clientX;
-            lastY = e.clientY;
-        });
-
-        document.addEventListener("mousemove", e => {
-            if (!drag) return;
-            let dx = e.clientX - lastX;
-            let dy = e.clientY - lastY;
-            window.scrollBy(-dx, -dy);
-            lastX = e.clientX;
-            lastY = e.clientY;
-        });
-
-        document.addEventListener("mouseup", () => drag = false);
-    </script>
+    document.addEventListener("mouseup", () => drag = false);
+</script>
 
 </body>
 </html>
-
