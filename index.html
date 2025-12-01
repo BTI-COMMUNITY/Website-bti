@@ -11,6 +11,67 @@
             overflow-y: auto;   /* agar halaman bisa discroll */
             overflow-x: hidden; /* mencegah scroll ke samping */
         }
+/* BACKGROUND ANIME AURA GLOW */
+body {
+    background: #000;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* Aura pink anime */
+.anime-glow1 {
+    position: fixed;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(255,0,150,0.6), transparent 70%);
+    filter: blur(80px);
+    top: -150px;
+    left: -150px;
+    z-index: -1;
+    animation: animeFloat1 10s infinite alternate ease-in-out;
+}
+
+/* Aura biru anime */
+.anime-glow2 {
+    position: fixed;
+    width: 700px;
+    height: 700px;
+    background: radial-gradient(circle, rgba(0,140,255,0.55), transparent 70%);
+    filter: blur(100px);
+    bottom: -200px;
+    right: -150px;
+    z-index: -1;
+    animation: animeFloat2 13s infinite alternate ease-in-out;
+}
+
+/* Aura ungu anime */
+.anime-glow3 {
+    position: fixed;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(150,0,255,0.5), transparent 70%);
+    filter: blur(90px);
+    bottom: 0;
+    left: 10%;
+    z-index: -1;
+    animation: animeFloat3 14s infinite alternate ease-in-out;
+}
+
+/* Animasi gerakan halus */
+@keyframes animeFloat1 {
+    0% { transform: translate(0,0); }
+    100% { transform: translate(40px, 70px); }
+}
+
+@keyframes animeFloat2 {
+    0% { transform: translate(0,0); }
+    100% { transform: translate(-50px, -60px); }
+}
+
+@keyframes animeFloat3 {
+    0% { transform: translate(0,0); }
+    100% { transform: translate(30px, -40px); }
+}
 
         body {
             margin: 0;
@@ -142,10 +203,14 @@
     <!-- HEADER -->
     <div class="hero">
         <div class="hero-text">
-            <h1 class="judul3d-h1">BTI COMMUNITY</h1>
+            <h1 class="judul3d-h1">GUARDIAN TALES</h1>
             <p class="judul3d">BTI COMMUNITY</p>
         </div>
     </div>
+    
+<div class="anime-glow1"></div>
+<div class="anime-glow2"></div>
+<div class="anime-glow3"></div>
 
     <!-- CARD -->
     <div class="card">
@@ -189,3 +254,4 @@
 
 </body>
 </html>
+
